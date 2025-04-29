@@ -1,0 +1,50 @@
+services:
+  active09-ua-app:
+    container_name: active09-ua-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./laravel:/var/www/html
+    depends_on:
+      - active09-ua-db
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=active09-ua-db
+      - DB_PORT=3306
+      - DB_DATABASE=active09_ua_db
+      - DB_USERNAME=active09_ua_db
+      - DB_PASSWORD=70f8893a82ea937e6edba1465b9437d53aa473d
+    expose:
+      - "80"
+    networks:
+      - nginx_proxy
+      - active09_ua_internal
+
+  active09-ua-db:
+    container_name: active09-ua-db
+    image: mysql:8
+    restart: always
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 70f8893a82ea937e6edba1465b9437d53aa473dcda03c83fc96387aece80dcd1
+      MYSQL_DATABASE: active09_ua_db
+      MYSQL_USER: active09_ua_db
+      MYSQL_PASSWORD: 70f8893a82ea937e6edba1465b9437d53aa473d
+    volumes:
+      - ./db_data:/var/lib/mysql
+    networks:
+      - active09_ua_internal
+
+volumes:
+  active09_ua_db_data:
+    external: true
+    name: active09_ua_db_data
+
+networks:
+  nginx_proxy:
+    external: true
+  active09_ua_internal:
+    name: active09_ua_internal
+    driver: bridge
