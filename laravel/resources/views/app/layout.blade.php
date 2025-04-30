@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<?php /* Google Analytics - Start */ ?>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KY1B2JYNRP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KY1B2JYNRP');
+</script>
+<?php /* Google Analytics - End */ ?>
+
 <meta charset="utf-8">
 <title>{{ env('APP_NAME') }}</title>
 <!-- Stylesheets -->
